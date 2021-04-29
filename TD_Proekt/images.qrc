@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>dirt_tile.png</file>
+        <file>grass_tile.png</file>
+    </qresource>
+</RCC>

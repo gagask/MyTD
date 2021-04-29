@@ -11,19 +11,18 @@ CONFIG += c++11
 SOURCES += \
     game.cpp \
     gameobject.cpp \
-    main.cpp \
-    mainwindow.cpp
+    main.cpp
 
 HEADERS += \
     game.h \
     gameobject.h \
-    mainwindow.h \
     tile.h
 
-FORMS += \
-    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc

@@ -11,8 +11,8 @@ namespace CONSTANTS{
     const int SCREEN_HEIGHT = 400;
     const int MARGIN_TOP = 64;
 
-    const QString DIRT_TILE = "D:/Qte/TD_Proekt/dirt_tile.png";
-    const QString GRASS_TILE = "D:/Qte/TD_Proekt/grass_tile.png";
+    const QString DIRT_TILE = ":/dirt_tile.png";
+    const QString GRASS_TILE = ":/grass_tile.png";
     //const QString HIGHLIGHT_TILE = "D:/Qte/TD_Proekt/tile_highlight.png";
 
     //const QString TOWER_FIRE = "D:/Qte/TD_Proekt/fire.png";
