@@ -2,5 +2,15 @@
     <qresource prefix="/">
         <file>dirt_tile.png</file>
         <file>grass_tile.png</file>
+        <file>fire.png</file>
+        <file>ice.png</file>
+        <file>rock.png</file>
+        <file>toweroption_h.png</file>
+        <file>earth_icon_base.png</file>
+        <file>fire_icon_base.png</file>
+        <file>ice_icon_base.png</file>
+        <file>strength_icon.png</file>
+        <file>target_icon.png</file>
+        <file>time_icon.png</file>
     </qresource>
 </RCC>

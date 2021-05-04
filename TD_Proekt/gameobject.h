@@ -15,9 +15,19 @@ namespace CONSTANTS{
     const QString GRASS_TILE = ":/grass_tile.png";
     //const QString HIGHLIGHT_TILE = "D:/Qte/TD_Proekt/tile_highlight.png";
 
-    //const QString TOWER_FIRE = "D:/Qte/TD_Proekt/fire.png";
-    //const QString TOWER_ICE = "D:/Qte/TD_Proekt/ice.png";
-    //const QString TOWER_EARTH = "D:/Qte/TD_Proekt/rock.png";
+    const QString TOWER_FIRE = ":/fire.png";
+    const QString TOWER_ICE = ":/ice.png";
+    const QString TOWER_EARTH = ":/rock.png";
+
+    //Ingame GUI
+    const QString TOWEROPT_H = ":/toweroption_h.png";
+    const QString UPGRADE_FIRE_BASE = ":/fire_icon_base.png";
+    const QString UPGRADE_ICE_BASE = ":/ice_icon_base.png";
+    const QString UPGRADE_EARTH_BASE = ":/earth_icon_base.png";
+    const QString UPGRADE_STRENGTH = ":/strength_icon.png";
+    const QString UPGRADE_RANGE = ":/target_icon.png";
+    const QString UPGRADE_RATE = ":/time_icon.png";
+
 
     const int TILE_ROW = 8;
     const int TILE_COL = 8;
@@ -42,6 +52,12 @@ public:
     virtual ~GameObject();
     inline QRect* getRect(){ return rect; }
     inline QImage* getImage() { return image; }
+    inline QRect getRectV() const { return *rect; }
+    inline QImage getImageV() const { return *image; }
+
+    //rect and image setters
+    inline void setImage(QImage i) { image = new QImage(i); }
+    inline void setRect(QRect r) { rect = new QRect(r); }
 
 private:
     QImage* image;
