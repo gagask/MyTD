@@ -9,21 +9,36 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    enemy.cpp \
     game.cpp \
     gameobject.cpp \
+    image.cpp \
     main.cpp \
-    mainwindow.cpp
+    tower.cpp \
+    wavegenerator.cpp
 
 HEADERS += \
+    enemy.h \
     game.h \
     gameobject.h \
-    mainwindow.h \
-    tile.h
+    image.h \
+    tile.h \
+    tower.h \
+    wavegenerator.h
 
-FORMS += \
-    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc
+
+DISTFILES += \
+    bat_l.png \
+    bat_r.png \
+    red ghost left.png \
+    red ghost right.png \
+    white ghost left.png \
+    white ghost right.png
