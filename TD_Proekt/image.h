@@ -3,11 +3,7 @@
 
 #include "gameobject.h"
 
-/*
-    @class Image
-    @brief The basic building block for the game's GUI components.
-    @detail A class that is used to display images in the GUI.
-*/
+
 class Image : public GameObject
 {
 public:

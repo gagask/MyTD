@@ -14,7 +14,8 @@ SOURCES += \
     gameobject.cpp \
     image.cpp \
     main.cpp \
-    tower.cpp
+    tower.cpp \
+    wavegenerator.cpp
 
 HEADERS += \
     enemy.h \
@@ -22,7 +23,8 @@ HEADERS += \
     gameobject.h \
     image.h \
     tile.h \
-    tower.h
+    tower.h \
+    wavegenerator.h
 
 
 # Default rules for deployment.
@@ -32,3 +34,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     images.qrc
+
+DISTFILES += \
+    bat_l.png \
+    bat_r.png \
+    red ghost left.png \
+    red ghost right.png \
+    white ghost left.png \
+    white ghost right.png

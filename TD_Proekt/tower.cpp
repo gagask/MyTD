@@ -68,7 +68,6 @@ int Tower::getDamage(Type t){
             break;
         case EARTH:
             return (5+earth.d_count);
-            break;
     }
 }
 

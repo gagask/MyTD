@@ -1,31 +1,9 @@
-/*
-    @mainpage HW9
-    @author Tim Maytom (104016902)
-    @date 12/10/2014
-    @section DESCRIPTION
-
-    This is my last update for the Tower Defense Game.
-
-    Feature List:
-        -Dynamically generated Text Images
-        -Dynamically generated tile map
-        -Random enemy spawner
-        -Tower class upgrades
-        -Formula based costs and stats for towers
-        -Infinite waves with increasing difficulty
-*/
 #ifndef ENEMY_H
 #define ENEMY_H
 
 #include "gameobject.h"
 #include "image.h"
 
-/*
-    @class Enemy
-    @brief Class for the enemy objects.
-    @detail This class will hold the properties and functions for the Enemy objects. It currently
-    has basic movement functions implemented.
-*/
 
 //Types of enemies
 enum class Enemy_Type{NORMAL, BADASS, BAT};
