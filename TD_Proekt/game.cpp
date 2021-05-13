@@ -1,7 +1,7 @@
-
 #include "game.h"
 #include <QApplication>
 #include <QPainter>
+#include <QMouseEvent>
 
 Game::Game(QWidget *parent) : QWidget(parent) , state(INGAME), curTowerOpt(0), curTowerType(FIRE)
 {
@@ -816,5 +816,98 @@ void Game::mousePressEvent(QMouseEvent *event){
             state = INGAME;
         }
         break;
+    }
+}
+Game::ToolTip::ToolTip(Image* s, Image* s_u, Image* c, Image* c_a) : upgrade(true)
+{
+    cost = c;
+    cost_amount = c_a;
+    stat = s;
+    stat_upgrade = s_u;
+    background = new Image(TOOLTIP::BASE);
+}
+
+
+Game::ToolTip::ToolTip(Image* c, Image* c_a) : upgrade(false)
+{
+    stat = c;
+    stat_upgrade = c_a;
+    background = new Image(TOOLTIP::BASE);
+}
+
+Game::ToolTip::~ToolTip(){
+    delete background;
+    delete stat;
+    delete stat_upgrade;
+    if(upgrade){
+        delete cost;
+        delete cost_amount;
+    }
+}
+
+
+void Game::ToolTip::moveTo(QPointF position){
+    int x = position.x();
+    int y = position.y();
+    resizeBackground();
+    background->getRect()->moveTo(x-background->getRect()->width(), y);
+    stat->getRect()->moveTo(background->getRect()->x()+2, background->getRect()->y()+2);
+    stat_upgrade->getRect()->moveTo(stat->getRect()->right()+3, stat->getRect()->y());
+    if(upgrade){
+        cost->getRect()->moveTo(stat_upgrade->getRect()->right()+5, stat_upgrade->getRect()->y());
+        cost_amount->getRect()->moveTo(cost->getRect()->right()+3, cost->getRect()->y());
+    }
+}
+
+
+void Game::ToolTip::paint(QPainter *p){
+    p->drawImage(*background->getRect(), *background->getImage());
+    p->drawImage(*stat->getRect(), *stat->getImage());
+    p->drawImage(*stat_upgrade->getRect(), *stat_upgrade->getImage());
+    if(upgrade){
+        p->drawImage(*cost->getRect(), *cost->getImage());
+        p->drawImage(*cost_amount->getRect(), *cost_amount->getImage());
+    }
+}
+
+void Game::ToolTip::resizeBackground(){
+    int width = 2 + stat->getRect()->width() + 3 + stat_upgrade->getRect()->width();
+    upgrade ? width += 5 + cost->getRect()->width() + 3 + cost_amount->getRect()->width() : width += 0;
+    int height = stat->getRect()->height() + 4;
+    background->setImage(background->getImage()->scaled(width, height, Qt::IgnoreAspectRatio));
+    background->setRect(background->getImage()->rect());
+}
+void Game::selectTile(Tile* t){
+    //If the tile isn't already selected then select it by highlighting it
+    if(!t->isActive()){
+        t->setActive(true);
+        tileHighlight->getRect()->moveTo(t->getRect()->topLeft());
+    }
+    //Otherwise if it is already selected build the selected tower type on the tile
+    else{
+        t->setActive(false);
+        switch(curTowerOpt){
+            case 0:
+                if(getScore() >= Tower::getCost(curTowerType)){
+                    updateScore(-Tower::getCost(curTowerType));
+                    towers.push_back(new Tower(CONSTANTS::TOWER_FIRE, *t->getRect()));
+                    t->setOccupied(true);
+                }
+                break;
+            case 1:
+                if(getScore() >= Tower::getCost(curTowerType)){
+                    updateScore(-Tower::getCost(curTowerType));
+                    towers.push_back(new Tower(CONSTANTS::TOWER_ICE, *t->getRect()));
+                    t->setOccupied(true);
+                }
+                break;
+            case 2:
+                if(getScore() >= Tower::getCost(curTowerType)){
+                    updateScore(-Tower::getCost(curTowerType));
+                    towers.push_back(new Tower(CONSTANTS::TOWER_EARTH, *t->getRect()));
+                    t->setOccupied(true);
+                }
+                break;
+        }
     }
 }

@@ -1,6 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
-
+#include "button.h"
 #include "tile.h"
 #include "image.h"
 #include "tower.h"
@@ -9,6 +9,9 @@
 #include <deque>
 #include <QTimer>
 
+namespace TOOLTIP{
+    const QString BASE = ":/tooltip_base.png";
+}
 enum State {MENU, INGAME, CLEARED, PAUSED, HELP};
 
 enum Chars {NORMAL, ACTIVE, RED};
@@ -75,7 +78,10 @@ private:
     std::vector<Enemy*> spawnList;
     std::vector<Tile*> map;
     std::vector<Tower*> towers;
-
+    Button* start_button;
+    Button* help_button;
+    Button* quit_button;
+    Button* continue_button;
     std::vector<Image*> letterChars;
     std::vector<Image*> letterCharsAct;
     std::vector<Image*> letterCharsRed;
@@ -90,6 +96,32 @@ private:
     std::vector<Image*> upgrade_icon;
     std::vector<Image*> ice_upgrade;
     std::vector<Image*> earth_upgrade;
+    std::vector<Button*> pauseButtons;
+    std::vector<Button*> arrows;
+    std::vector<Image*> helpImages;
+    int helpIndex;
+    void selectTile(Tile*);
+     class ToolTip;
+     ToolTip* tooltip;
+
+     class ToolTip{
+     public:
+         ToolTip(Image* s, Image* s_u, Image*, Image* c_a);
+         ToolTip(Image* c, Image* c_a);
+         ~ToolTip();
+
+         void moveTo(QPointF position);
+         void paint(QPainter* p);
+     private:
+         bool upgrade;
+         Image* cost;
+         Image* cost_amount;
+         Image* background;
+         Image* stat;
+         Image* stat_upgrade;
+
+         void resizeBackground();
+     };
 };
 
 #endif // GAME_H

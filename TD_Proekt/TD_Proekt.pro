@@ -43,5 +43,6 @@ DISTFILES += \
     bat_r.png \
     red ghost left.png \
     red ghost right.png \
+    tooltip_base.png \
     white ghost left.png \
     white ghost right.png
