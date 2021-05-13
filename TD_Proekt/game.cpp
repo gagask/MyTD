@@ -1,7 +1,7 @@
-
 #include "game.h"
 #include <QApplication>
 #include <QPainter>
+#include <QMouseEvent>
 
 Game::Game(QWidget *parent) : QWidget(parent) , state(INGAME), curTowerOpt(0), curTowerType(FIRE)
 {
@@ -548,4 +548,366 @@ Image* Game::mergeChars(std::string word, double scale, Chars c){
     }
 
     return image;
+}
+
+void Game::mouseMoveEvent(QMouseEvent *event){
+    switch(state){
+        case MENU:
+            //If hovering over start change start's image and make sure the others are passive
+            if(start_button->getRect()->contains(event->pos())){
+                start_button->setActive(true);
+                help_button->setActive(false);
+                quit_button->setActive(false);
+            }
+            //If hovering over help change help's image and make sure the others are passive
+            else if(help_button->getRect()->contains(event->pos())){
+                help_button->setActive(true);
+                start_button->setActive(false);
+                quit_button->setActive(false);
+            }
+            //If hovering over quit change quit's image and make sure the others are passive
+            else if(quit_button->getRect()->contains(event->pos())){
+                quit_button->setActive(true);
+                start_button->setActive(false);
+                help_button->setActive(false);
+            }
+            //Otherwise make sure that all the buttons are displaying passive images
+            else{
+                start_button->setActive(false);
+                help_button->setActive(false);
+                quit_button->setActive(false);
+            }
+            break;
+        case PAUSED:
+            //If hovering over resume change resume's image and make sure main menu is passive
+            if(pauseButtons[0]->getRect()->contains(event->pos())){
+                pauseButtons[0]->setActive(true);
+                pauseButtons[1]->setActive(false);
+            }
+            //If hovering over main menu change main menu's image and make sure resume is passive
+            else if(pauseButtons[1]->getRect()->contains(event->pos())){
+                pauseButtons[0]->setActive(false);
+                pauseButtons[1]->setActive(true);
+            }
+            //Otherwise set resume and main menu to the passive image
+            else{
+                pauseButtons[0]->setActive(false);
+                pauseButtons[1]->setActive(false);
+            }
+            break;
+        case HELP:
+            //If hovering over left arrow change left arrow's image and make sure the others are passive
+            if(arrows[0]->getRect()->contains(event->pos())){
+                arrows[0]->setActive(true);
+                arrows[1]->setActive(false);
+                arrows[2]->setActive(false);
+            }
+            //If hovering over right arrow change right arrow's image and make sure the others are passive
+            else if(arrows[1]->getRect()->contains(event->pos())){
+                arrows[0]->setActive(false);
+                arrows[1]->setActive(true);
+                arrows[2]->setActive(false);
+            }
+            //If hovering over back change back's image and make sure the others are passive
+            else if(arrows[2]->getRect()->contains(event->pos())){
+                arrows[0]->setActive(false);
+                arrows[1]->setActive(false);
+                arrows[2]->setActive(true);
+            }
+            //Otherwise set all three to passive
+            else{
+                arrows[0]->setActive(false);
+                arrows[1]->setActive(false);
+                arrows[2]->setActive(false);
+            }
+            break;
+        case CLEARED:
+            //If hovering over continue's image make it active
+            if(continue_button->getRect()->contains(event->pos()))
+                continue_button->setActive(true);
+            //Otherwise make it passive
+            else
+                continue_button->setActive(false);
+            break;
+        case INGAME:
+            //Start by clearing the tooltip
+            delete tooltip;
+            tooltip = NULL;
+
+            //Then draw the correct tooltip based on the event->pos()
+
+            //TowerOption # 1
+            if(towerOptions[0]->getRect()->contains(event->pos())){
+                tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getCost(FIRE)), 1, ACTIVE));
+                tooltip->moveTo(event->pos());
+            }
+
+            //TowerOption # 2
+            else if(towerOptions[1]->getRect()->contains(event->pos())){
+                tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getCost(ICE)), 1, ACTIVE));
+                tooltip->moveTo(event->pos());
+            }
+
+            //TowerOption # 3
+            else if(towerOptions[2]->getRect()->contains(event->pos())){
+                tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getCost(EARTH)), 1, ACTIVE));
+                tooltip->moveTo(event->pos());
+            }
+
+            //Upgrade #1
+            if(upgrade_icon[0]->getRect()->contains(event->pos())){
+                tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getDamageCost(curTowerType)), 1, ACTIVE),
+                                      mergeChars("str", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getDamage(curTowerType)), 1, ACTIVE));
+                tooltip->moveTo(event->pos());
+            }
+            //Upgrade #2
+            else if(upgrade_icon[1]->getRect()->contains(event->pos())){
+                tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getRangeCost(curTowerType)), 1, ACTIVE),
+                                      mergeChars("range", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getRange(curTowerType)), 1, ACTIVE));
+                tooltip->moveTo(event->pos());
+            }
+            //Upgrade #3
+            else if(upgrade_icon[2]->getRect()->contains(event->pos())){
+               tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getCoolDownCost(curTowerType)), 1, ACTIVE),
+                                      mergeChars("rate", 1, NORMAL),
+                                      mergeChars(std::to_string(Tower::getCoolDown(curTowerType)), 1, ACTIVE));
+                tooltip->moveTo(event->pos());
+            }
+            break;
+    }
+    repaint();
+}
+
+
+/*
+    mousePressEvent
+    @brief This function handles all mouse clicks on Button objects.
+    It checks the position of the click agains the Buttons' QRects.
+*/
+void Game::mousePressEvent(QMouseEvent *event){
+    switch(state){
+        case MENU:
+            //Pressing the start button will start the game
+            if(start_button->getRect()->contains(event->pos())){
+                //Start game
+                state = INGAME;
+                //set up a new game
+                newGame();
+            }
+            //Pressing the help button will activate the Help state
+            else if(help_button->getRect()->contains(event->pos())){
+                //Open Help Window
+                state = HELP;
+            }
+            //Pressing the quit button will end the application
+            else if(quit_button->getRect()->contains(event->pos())){
+                qApp->quit();
+            }
+            break;
+        case PAUSED:
+            //Pressing resume will continue the current game
+            if(pauseButtons[0]->getRect()->contains(event->pos())){
+                //Resume game
+                state = INGAME;
+                startTimers();
+
+            }
+            //Pressing Main Menu will return the user to the main menu
+            else if(pauseButtons[1]->getRect()->contains(event->pos())){
+                //Return to main menu
+                killTimer(paintTimer);
+                state = MENU;
+            }
+            break;
+        case HELP:
+            //Pressing the left arrow will update the helpIndex so that it shows the image on the left
+            if(arrows[0]->getRect()->contains(event->pos())){
+                if(helpIndex == 0)
+                    helpIndex = helpImages.size()-1;
+                else
+                    helpIndex--;
+            }
+            //Pressing the right arrow will update the helpIndex so that it shows the image on the right
+            else if(arrows[1]->getRect()->contains(event->pos())){
+                if(helpIndex == helpImages.size()-1)
+                    helpIndex = 0;
+                else
+                    helpIndex++;
+            }
+            //Pressing back will return the user to the main menu
+            else if(arrows[2]->getRect()->contains(event->pos())){
+                //Reset the helpIndex so that it will reopen at the first image
+                helpIndex = 0;
+                //Return to main menu
+                state = MENU;
+            }
+            repaint();
+            break;
+    case INGAME:
+        //Check if the event occurred on a non-path tile that is empty. If so then highlight that tile
+        for(auto& t : map)
+            (!t->isPath() && !t->isOccupied() && t->getRect()->contains(event->pos())) ? selectTile(t) : t->setActive(false);
+
+        //Check if the click event occured on one of the tower builder options and if so update the selected tower type
+        for(size_t i=0; i<towerOptions.size(); i++){
+            if(towerOptions[i]->getRect()->contains(event->pos())){
+                curTowerOpt = i;
+                //Also update the tower type variable
+                switch(curTowerOpt){
+                    case 0:
+                        curTowerType = FIRE;
+                        break;
+                    case 1:
+                        curTowerType = ICE;
+                        break;
+                    case 2:
+                        curTowerType = EARTH;
+                        break;
+                }
+            }
+        }
+
+        //Update the correspond tooltip and tower stat based on click event pos
+
+        //Upgrade #1
+        if(getScore() > Tower::getDamageCost(curTowerType) && upgrade_icon[0]->getRect()->contains(event->pos())){
+            updateScore(-Tower::getDamageCost(curTowerType));
+            Tower::upgradeDamage(curTowerType);
+            tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                  mergeChars(std::to_string(Tower::getDamageCost(curTowerType)), 1, ACTIVE),
+                                  mergeChars("str", 1, NORMAL),
+                                  mergeChars(std::to_string(Tower::getDamage(curTowerType)), 1, ACTIVE));
+            tooltip->moveTo(event->pos());
+        }
+        //Upgrade #2
+        else if(getScore() > Tower::getRangeCost(curTowerType) && upgrade_icon[1]->getRect()->contains(event->pos())){
+            updateScore(-Tower::getRangeCost(curTowerType));
+            Tower::upgradeRange(curTowerType);
+            tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                  mergeChars(std::to_string(Tower::getRangeCost(curTowerType)), 1, ACTIVE),
+                                  mergeChars("range", 1, NORMAL),
+                                  mergeChars(std::to_string(Tower::getRange(curTowerType)), 1, ACTIVE));
+            tooltip->moveTo(event->pos());
+        }
+        //Upgrade #3
+        else if(getScore() > Tower::getCoolDownCost(curTowerType) && upgrade_icon[2]->getRect()->contains(event->pos())){
+            updateScore(-Tower::getCoolDownCost(curTowerType));
+            Tower::upgradeCoolDown(curTowerType);
+            tooltip = new ToolTip(mergeChars("cost", 1, NORMAL),
+                                  mergeChars(std::to_string(Tower::getCoolDownCost(curTowerType)), 1, ACTIVE),
+                                  mergeChars("rate", 1, NORMAL),
+                                  mergeChars(std::to_string(Tower::getCoolDown(curTowerType)), 1, ACTIVE));
+            tooltip->moveTo(event->pos());
+        }
+
+        break;
+    case CLEARED:
+        //Pressing continue will start the next wave
+        if(continue_button->getRect()->contains(event->pos())){
+            newWave(); //start next wave
+            state = INGAME;
+        }
+        break;
+    }
+}
+Game::ToolTip::ToolTip(Image* s, Image* s_u, Image* c, Image* c_a) : upgrade(true)
+{
+    cost = c;
+    cost_amount = c_a;
+    stat = s;
+    stat_upgrade = s_u;
+    background = new Image(TOOLTIP::BASE);
+}
+
+
+Game::ToolTip::ToolTip(Image* c, Image* c_a) : upgrade(false)
+{
+    stat = c;
+    stat_upgrade = c_a;
+    background = new Image(TOOLTIP::BASE);
+}
+
+Game::ToolTip::~ToolTip(){
+    delete background;
+    delete stat;
+    delete stat_upgrade;
+    if(upgrade){
+        delete cost;
+        delete cost_amount;
+    }
+}
+
+
+void Game::ToolTip::moveTo(QPointF position){
+    int x = position.x();
+    int y = position.y();
+    resizeBackground();
+    background->getRect()->moveTo(x-background->getRect()->width(), y);
+    stat->getRect()->moveTo(background->getRect()->x()+2, background->getRect()->y()+2);
+    stat_upgrade->getRect()->moveTo(stat->getRect()->right()+3, stat->getRect()->y());
+    if(upgrade){
+        cost->getRect()->moveTo(stat_upgrade->getRect()->right()+5, stat_upgrade->getRect()->y());
+        cost_amount->getRect()->moveTo(cost->getRect()->right()+3, cost->getRect()->y());
+    }
+}
+
+
+void Game::ToolTip::paint(QPainter *p){
+    p->drawImage(*background->getRect(), *background->getImage());
+    p->drawImage(*stat->getRect(), *stat->getImage());
+    p->drawImage(*stat_upgrade->getRect(), *stat_upgrade->getImage());
+    if(upgrade){
+        p->drawImage(*cost->getRect(), *cost->getImage());
+        p->drawImage(*cost_amount->getRect(), *cost_amount->getImage());
+    }
+}
+
+void Game::ToolTip::resizeBackground(){
+    int width = 2 + stat->getRect()->width() + 3 + stat_upgrade->getRect()->width();
+    upgrade ? width += 5 + cost->getRect()->width() + 3 + cost_amount->getRect()->width() : width += 0;
+    int height = stat->getRect()->height() + 4;
+    background->setImage(background->getImage()->scaled(width, height, Qt::IgnoreAspectRatio));
+    background->setRect(background->getImage()->rect());
+}
+void Game::selectTile(Tile* t){
+    //If the tile isn't already selected then select it by highlighting it
+    if(!t->isActive()){
+        t->setActive(true);
+        tileHighlight->getRect()->moveTo(t->getRect()->topLeft());
+    }
+    //Otherwise if it is already selected build the selected tower type on the tile
+    else{
+        t->setActive(false);
+        switch(curTowerOpt){
+            case 0:
+                if(getScore() >= Tower::getCost(curTowerType)){
+                    updateScore(-Tower::getCost(curTowerType));
+                    towers.push_back(new Tower(CONSTANTS::TOWER_FIRE, *t->getRect()));
+                    t->setOccupied(true);
+                }
+                break;
+            case 1:
+                if(getScore() >= Tower::getCost(curTowerType)){
+                    updateScore(-Tower::getCost(curTowerType));
+                    towers.push_back(new Tower(CONSTANTS::TOWER_ICE, *t->getRect()));
+                    t->setOccupied(true);
+                }
+                break;
+            case 2:
+                if(getScore() >= Tower::getCost(curTowerType)){
+                    updateScore(-Tower::getCost(curTowerType));
+                    towers.push_back(new Tower(CONSTANTS::TOWER_EARTH, *t->getRect()));
+                    t->setOccupied(true);
+                }
+                break;
+        }
+    }
 }
