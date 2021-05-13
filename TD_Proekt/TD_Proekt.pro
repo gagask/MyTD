@@ -37,12 +37,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     images.qrc
-
-DISTFILES += \
-    bat_l.png \
-    bat_r.png \
-    red ghost left.png \
-    red ghost right.png \
-    tooltip_base.png \
-    white ghost left.png \
-    white ghost right.png
