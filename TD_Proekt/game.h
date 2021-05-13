@@ -47,6 +47,9 @@ private:
     void newWave();
     void startTimers();
 
+    void paintChar(std::string,double,QPainter&,int,int,bool);
+    void printChar(Image* character, double scale, QPainter& p, int& x, int& y);
+
     inline int getWave() const { return wave_value; }
     inline int getScore() const { return score_value; }
 
@@ -90,6 +93,10 @@ private:
     std::vector<Image*> towerOptions;
     int curTowerOpt;
     Type curTowerType;
+    Image* title_line1;
+    Image* title_line2;
+    Image* wave_title;
+    Image* score_title;
     Image* towerOptHighlight;
     Image* tileHighlight;
     std::vector<Image*> fire_upgrade;

@@ -155,56 +155,366 @@ void Game::buildMap(){
         }
     }
 }
+
+void Game::printChar(Image* character, double scale, QPainter& p, int& x, int& y){
+    Image* copy = character->scaledCopy(scale);
+    copy->getRect()->moveTo(x,y);
+    p.drawImage(*copy->getRect(),*copy->getImage());
+    x += copy->getRect()->width();
+    delete copy;
+}
+
+void Game::paintChar(std::string word, double scale, QPainter& p, int x, int y, bool active){
+    //For each char in the string draw the appropriate Image
+    //Also update the cordinates x,y so that the Images display corrrectly
+    for(size_t i = 0; i < word.length(); i++){
+        if(active){
+            switch(word[i]){
+            case '0':
+                printChar(letterCharsAct[0], scale, p, x, y);
+                break;
+            case '1':
+                printChar(letterCharsAct[1], scale, p, x, y);
+                break;
+            case '2':
+                printChar(letterCharsAct[2], scale, p, x, y);
+                break;
+            case '3':
+                printChar(letterCharsAct[3], scale, p, x, y);
+                break;
+            case '4':
+                printChar(letterCharsAct[4], scale, p, x, y);
+                break;
+            case '5':
+                printChar(letterCharsAct[5], scale, p, x, y);
+                break;
+            case '6':
+                printChar(letterCharsAct[6], scale, p, x, y);
+                break;
+            case '7':
+                printChar(letterCharsAct[7], scale, p, x, y);
+                break;
+            case '8':
+                printChar(letterCharsAct[8], scale, p, x, y);
+                break;
+            case '9':
+                printChar(letterCharsAct[9], scale, p, x, y);
+                break;
+            case 'a':
+                printChar(letterCharsAct[10], scale, p, x, y);
+                break;
+            case 'b':
+                printChar(letterCharsAct[11], scale, p, x, y);
+                break;
+            case 'c':
+                printChar(letterCharsAct[12], scale, p, x, y);
+                break;
+            case 'd':
+                printChar(letterCharsAct[13], scale, p, x, y);
+                break;
+            case 'e':
+                printChar(letterCharsAct[14], scale, p, x, y);
+                break;
+            case 'f':
+                printChar(letterCharsAct[15], scale, p, x, y);
+                break;
+            case 'g':
+                printChar(letterCharsAct[16], scale, p, x, y);
+                break;
+            case 'h':
+                printChar(letterCharsAct[17], scale, p, x, y);
+                break;
+            case 'i':
+                printChar(letterCharsAct[18], scale, p, x, y);
+                break;
+            case 'j':
+                printChar(letterCharsAct[19], scale, p, x, y);
+                break;
+            case 'k':
+                printChar(letterCharsAct[20], scale, p, x, y);
+                break;
+            case 'l':
+                printChar(letterCharsAct[21], scale, p, x, y);
+                break;
+            case 'm':
+                printChar(letterCharsAct[22], scale, p, x, y);
+                break;
+            case 'n':
+                printChar(letterCharsAct[23], scale, p, x, y);
+                break;
+            case 'o':
+                printChar(letterCharsAct[24], scale, p, x, y);
+                break;
+            case 'p':
+                printChar(letterCharsAct[25], scale, p, x, y);
+                break;
+            case 'q':
+                printChar(letterCharsAct[26], scale, p, x, y);
+                break;
+            case 'r':
+                printChar(letterCharsAct[27], scale, p, x, y);
+                break;
+            case 's':
+                printChar(letterCharsAct[28], scale, p, x, y);
+                break;
+            case 't':
+                printChar(letterCharsAct[29], scale, p, x, y);
+                break;
+            case 'u':
+                printChar(letterCharsAct[30], scale, p, x, y);
+                break;
+            case 'v':
+                printChar(letterCharsAct[31], scale, p, x, y);
+                break;
+            case 'w':
+                printChar(letterCharsAct[32], scale, p, x, y);
+                break;
+            case 'x':
+                printChar(letterCharsAct[33], scale, p, x, y);
+                break;
+            case 'y':
+                printChar(letterCharsAct[34], scale, p, x, y);
+                break;
+            case 'z':
+                printChar(letterCharsAct[35], scale, p, x, y);
+                break;
+            case ' ':
+                printChar(specialChars[0], scale, p, x, y);
+                break;
+        }
+        }
+        else{
+            switch(word[i]){
+                case '0':
+                    printChar(letterChars[0], scale, p, x, y);
+                    break;
+                case '1':
+                    printChar(letterChars[1], scale, p, x, y);
+                    break;
+                case '2':
+                    printChar(letterChars[2], scale, p, x, y);
+                    break;
+                case '3':
+                    printChar(letterChars[3], scale, p, x, y);
+                    break;
+                case '4':
+                    printChar(letterChars[4], scale, p, x, y);
+                    break;
+                case '5':
+                    printChar(letterChars[5], scale, p, x, y);
+                    break;
+                case '6':
+                    printChar(letterChars[6], scale, p, x, y);
+                    break;
+                case '7':
+                    printChar(letterChars[7], scale, p, x, y);
+                    break;
+                case '8':
+                    printChar(letterChars[8], scale, p, x, y);
+                    break;
+                case '9':
+                    printChar(letterChars[9], scale, p, x, y);
+                    break;
+                case 'a':
+                    printChar(letterChars[10], scale, p, x, y);
+                    break;
+                case 'b':
+                    printChar(letterChars[11], scale, p, x, y);
+                    break;
+                case 'c':
+                    printChar(letterChars[12], scale, p, x, y);
+                    break;
+                case 'd':
+                    printChar(letterChars[13], scale, p, x, y);
+                    break;
+                case 'e':
+                    printChar(letterChars[14], scale, p, x, y);
+                    break;
+                case 'f':
+                    printChar(letterChars[15], scale, p, x, y);
+                    break;
+                case 'g':
+                    printChar(letterChars[16], scale, p, x, y);
+                    break;
+                case 'h':
+                    printChar(letterChars[17], scale, p, x, y);
+                    break;
+                case 'i':
+                    printChar(letterChars[18], scale, p, x, y);
+                    break;
+                case 'j':
+                    printChar(letterChars[19], scale, p, x, y);
+                    break;
+                case 'k':
+                    printChar(letterChars[20], scale, p, x, y);
+                    break;
+                case 'l':
+                    printChar(letterChars[21], scale, p, x, y);
+                    break;
+                case 'm':
+                    printChar(letterChars[22], scale, p, x, y);
+                    break;
+                case 'n':
+                    printChar(letterChars[23], scale, p, x, y);
+                    break;
+                case 'o':
+                    printChar(letterChars[24], scale, p, x, y);
+                    break;
+                case 'p':
+                    printChar(letterChars[25], scale, p, x, y);
+                    break;
+                case 'q':
+                    printChar(letterChars[26], scale, p, x, y);
+                    break;
+                case 'r':
+                    printChar(letterChars[27], scale, p, x, y);
+                    break;
+                case 's':
+                    printChar(letterChars[28], scale, p, x, y);
+                    break;
+                case 't':
+                    printChar(letterChars[29], scale, p, x, y);
+                    break;
+                case 'u':
+                    printChar(letterChars[30], scale, p, x, y);
+                    break;
+                case 'v':
+                    printChar(letterChars[31], scale, p, x, y);
+                    break;
+                case 'w':
+                    printChar(letterChars[32], scale, p, x, y);
+                    break;
+                case 'x':
+                    printChar(letterChars[33], scale, p, x, y);
+                    break;
+                case 'y':
+                    printChar(letterChars[34], scale, p, x, y);
+                    break;
+                case 'z':
+                    printChar(letterChars[35], scale, p, x, y);
+                    break;
+                case ' ':
+                    printChar(specialChars[0], scale, p, x, y);
+                    break;
+            }
+        }
+    }
+
+}
+
+
 void Game::paintEvent(QPaintEvent*){
     QPainter painter(this);
-    //Draw the score and wave Images
 
-    //Tower Builder Menu
-    for(const auto o : towerOptions)
-        painter.drawImage(*o->getRect(), *o->getImage());
-    painter.drawImage(*towerOptions[curTowerOpt]->getRect(), *towerOptHighlight->getImage());
+    switch(state){
+        case MENU:
+            //Draw the title Images
+            painter.drawImage(*title_line1->getRect(), *title_line1->getImage());
+            painter.drawImage(*title_line2->getRect(), *title_line2->getImage());
 
-    //Upgrade menu
-    switch(curTowerOpt){
-        case 0:
-            for(auto& u : fire_upgrade)
-                painter.drawImage(*u->getRect(), *u->getImage());
+            //Then for each of the buttons check to display active or passive image
+            if(start_button->isActive())
+                painter.drawImage(*start_button->getRect(), start_button->getActiveImage());
+            else
+                painter.drawImage(*start_button->getRect(), *start_button->getImage());
+
+            if(help_button->isActive())
+                painter.drawImage(*help_button->getRect(), help_button->getActiveImage());
+            else
+                painter.drawImage(*help_button->getRect(), *help_button->getImage());
+            if(quit_button->isActive())
+                painter.drawImage(*quit_button->getRect(), quit_button->getActiveImage());
+            else
+                painter.drawImage(*quit_button->getRect(), *quit_button->getImage());
             break;
-        case 1:
-            for(auto& u : ice_upgrade)
-                painter.drawImage(*u->getRect(), *u->getImage());
-            break;
-        case 2:
-            for(auto& u : earth_upgrade)
-                painter.drawImage(*u->getRect(), *u->getImage());
-            break;
-    }
+        case INGAME:
+            //Draw the score and wave Images
+            paintChar(std::to_string(getWave()),1,painter,10,10+wave_title->getRect()->height(),false);
+            painter.drawImage(*score_title->getRect(),*score_title->getImage());
+            paintChar(std::to_string(getScore()),1,painter,width()-std::to_string(getScore()).length()*6-5, 10+score_title->getRect()->height(),false);
+            painter.drawImage(*wave_title->getRect(),*wave_title->getImage());
 
-    //Draw the upgrade menu icons
-    for(auto& i : upgrade_icon)
-        painter.drawImage(*i->getRect(), *i->getImage());
+            //Tower Builder Menu
+            for(const auto o : towerOptions)
+                painter.drawImage(*o->getRect(), *o->getImage());
+            painter.drawImage(*towerOptions[curTowerOpt]->getRect(), *towerOptHighlight->getImage());
 
-    //Draw the map tiles
-    for(auto& t : map){
-        painter.drawImage(*t->getRect(), *t->getImage());
-        if(t->isActive())
-            painter.drawImage(*tileHighlight->getRect(), *tileHighlight->getImage());
-    }
+            //Upgrade menu
+            switch(curTowerOpt){
+                case 0:
+                    for(auto& u : fire_upgrade)
+                        painter.drawImage(*u->getRect(), *u->getImage());
+                    break;
+                case 1:
+                    for(auto& u : ice_upgrade)
+                        painter.drawImage(*u->getRect(), *u->getImage());
+                    break;
+                case 2:
+                    for(auto& u : earth_upgrade)
+                        painter.drawImage(*u->getRect(), *u->getImage());
+                    break;
+            }
 
-    //Draw each of the enemies
-    for(auto& e : enemies)
-        if(!e->isDead())
-            painter.drawImage(*e->getRect(), *e->getImage());
+            //Draw the upgrade menu icons
+            for(auto& i : upgrade_icon)
+                painter.drawImage(*i->getRect(), *i->getImage());
 
+            //Draw the map tiles
+            for(auto& t : map){
+                painter.drawImage(*t->getRect(), *t->getImage());
+                if(t->isActive())
+                    painter.drawImage(*tileHighlight->getRect(), *tileHighlight->getImage());
+            }
+
+            //Draw each of the enemies
+            for(auto& e : enemies){
+                if(!e->isDead())
+                    painter.drawImage(*e->getRect(), *e->getImage());
+            }
 \
-    //Draw the towers
-    /*for(const auto t : towers)
-        painter.drawImage(*t->getRect(), *t->getImage());
-       */
+            //Draw the towers
+            for(const auto t : towers)
+                painter.drawImage(*t->getRect(), *t->getImage());
 
-    //Draw the tooltip
-    /*if(tooltip != NULL)
-        tooltip->paint(&painter);*/
+            //Draw the damage number images
+            for(const auto d : damageDisplays)
+                painter.drawImage(*d->getRect(), *d->getImage());
+
+            //Draw the tooltip
+            if(tooltip != NULL)
+                tooltip->paint(&painter);
+            break;
+        case CLEARED:
+            //Draw the cleared wave message
+            paintChar("wave "+std::to_string(getWave())+" cleared",0.25,painter,(width()-(13+std::to_string(getWave()).length())*20)/2,100,false);
+            //Paint the continue button
+            if(continue_button->isActive())
+                painter.drawImage(*continue_button->getRect(), continue_button->getActiveImage());
+            else
+                painter.drawImage(*continue_button->getRect(), *continue_button->getImage());
+            break;
+        case PAUSED:
+            //For each of the buttons check to display active or passive image
+            for(const auto b : pauseButtons){
+                if(b->isActive())
+                    painter.drawImage(*b->getRect(), b->getActiveImage());
+                else
+                    painter.drawImage(*b->getRect(), *b->getImage());
+            }
+            break;
+        case HELP:
+            //Draw the appropriate help image depending on the users current index
+            painter.drawImage(*helpImages[helpIndex]->getRect(), *helpImages[helpIndex]->getImage());
+
+            //For each of the arrows check to display active or passive image
+            for(const auto b : arrows){
+                if(b->isActive())
+                    painter.drawImage(*b->getRect(), b->getActiveImage());
+                else
+                    painter.drawImage(*b->getRect(), *b->getImage());
+            }
+            break;
+    }
 }
 
 void Game::cleanEnemyList(){
