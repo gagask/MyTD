@@ -30,7 +30,8 @@ private:
     void loadInGame();
     void buildMap();
     void createNavigationPath();
-
+    void mouseMoveEvent(QMouseEvent *);
+    void mousePressEvent(QMouseEvent *);
     void paintEvent(QPaintEvent* event);
     void timerEvent(QTimerEvent* event);
 

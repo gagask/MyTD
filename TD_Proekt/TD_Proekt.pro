@@ -26,7 +26,8 @@ HEADERS += \
     image.h \
     tile.h \
     tower.h \
-    wavegenerator.h
+    wavegenerator.h \
+    waypoint.h
 
 
 # Default rules for deployment.
