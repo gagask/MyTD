@@ -3,16 +3,15 @@
 
 #include <QPointF>
 
+
 class Waypoint
 {
 public:
-
     Waypoint(int x, int y) : pos(new QPointF(x, y)){}
-
 
     inline QPointF getPos() const{ return *pos; }
 private:
     QPointF* pos;
 };
 
-#endif
+#endif // WAYPOINT_H

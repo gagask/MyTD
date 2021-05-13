@@ -1,18 +1,33 @@
 <RCC>
     <qresource prefix="/">
-        <file>dirt_tile.png</file>
-        <file>grass_tile.png</file>
-        <file>fire.png</file>
-        <file>ice.png</file>
-        <file>rock.png</file>
+        <file>white ghost right.png</file>
+        <file>white ghost left.png</file>
+        <file>upgrade_menu.png</file>
         <file>toweroption_h.png</file>
-        <file>earth_icon_base.png</file>
-        <file>fire_icon_base.png</file>
-        <file>ice_icon_base.png</file>
-        <file>strength_icon.png</file>
-        <file>target_icon.png</file>
+        <file>tower_select.png</file>
+        <file>tower_builder.png</file>
+        <file>tooltip_base.png</file>
         <file>time_icon.png</file>
-        <file>characters/space.png</file>
+        <file>tile_select.png</file>
+        <file>tile_highlight.png</file>
+        <file>target_icon.png</file>
+        <file>strength_icon.png</file>
+        <file>rock.png</file>
+        <file>rightarrow_hover.png</file>
+        <file>rightarrow.png</file>
+        <file>red ghost right.png</file>
+        <file>red ghost left.png</file>
+        <file>leftarrow_hover.png</file>
+        <file>leftarrow.png</file>
+        <file>ice_icon_base.png</file>
+        <file>ice.png</file>
+        <file>grass_tile.png</file>
+        <file>fire_icon_base.png</file>
+        <file>fire.png</file>
+        <file>earth_icon_base.png</file>
+        <file>dirt_tile.png</file>
+        <file>bat_r.png</file>
+        <file>bat_l.png</file>
         <file>characters/Active/0.png</file>
         <file>characters/Active/1.png</file>
         <file>characters/Active/2.png</file>
@@ -96,11 +111,6 @@
         <file>characters/Red/7.png</file>
         <file>characters/Red/8.png</file>
         <file>characters/Red/9.png</file>
-        <file>bat_l.png</file>
-        <file>bat_r.png</file>
-        <file>red ghost left.png</file>
-        <file>red ghost right.png</file>
-        <file>white ghost left.png</file>
-        <file>white ghost right.png</file>
+        <file>characters/space.png</file>
     </qresource>
 </RCC>

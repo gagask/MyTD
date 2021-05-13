@@ -1,9 +1,11 @@
 #include "gameobject.h"
 
+
 GameObject::GameObject(){
     image = NULL;
     rect = NULL;
 }
+
 GameObject::GameObject(QString filePath, qreal scale)
 {
     QImage* raw = new QImage(filePath);

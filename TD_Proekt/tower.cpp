@@ -3,7 +3,6 @@
 #include <QRect>
 #include <QApplication>
 
-//Initialize all of the static members
 Tower::TowerStats Tower::fire = Tower::TowerStats();
 Tower::TowerStats Tower::ice = Tower::TowerStats();
 Tower::TowerStats Tower::earth = Tower::TowerStats();
@@ -11,13 +10,7 @@ int Tower::fireCount = 0;
 int Tower::iceCount = 0;
 int Tower::earthCount = 0;
 
-/*
-    Constructor
-    @param fileName the file path to the tower image
-    @param tile the location to build the tower
-*/
 Tower::Tower(QString fileName, QRect tile) : GameObject(fileName) , coolDown(false){
-    //Update the tower type counters
     if(fileName == TOWER::TOWER_FIRE){
         type = FIRE;
         fireCount++;
@@ -34,9 +27,6 @@ Tower::Tower(QString fileName, QRect tile) : GameObject(fileName) , coolDown(fal
     getRect()->moveTo(tile.topLeft()); //Move the tower to the tile location
 }
 
-/*
-    Function to reset the tower type counts
-*/
 void Tower::resetUpgrades(){
     fireCount = 0;
     iceCount = 0;
@@ -55,9 +45,6 @@ void Tower::resetUpgrades(){
     earth.s_count = 0;
 }
 
-/*
-    Tower type damage getter
-*/
 int Tower::getDamage(Type t){
     switch(t){
         case FIRE:
@@ -68,12 +55,10 @@ int Tower::getDamage(Type t){
             break;
         case EARTH:
             return (5+earth.d_count);
+            break;
     }
 }
 
-/*
-    Tower type range getter
-*/
 int Tower::getRange(Type t){
     switch(t){
         case FIRE:
@@ -88,9 +73,6 @@ int Tower::getRange(Type t){
     }
 }
 
-/*
-    Tower type cool down getter
-*/
 int Tower::getCoolDown(Type t){
     switch(t){
         case FIRE:
@@ -105,9 +87,6 @@ int Tower::getCoolDown(Type t){
     }
 }
 
-/*
-    Tower type cost getter
-*/
 int Tower::getCost(Type t){
     switch(t){
         case FIRE:
@@ -122,9 +101,6 @@ int Tower::getCost(Type t){
     }
 }
 
-/*
-    Tower type damage upgrade cost getter
-*/
 int Tower::getDamageCost(Type t){
     switch(t){
         case FIRE:
@@ -139,9 +115,6 @@ int Tower::getDamageCost(Type t){
     }
 }
 
-/*
-    Tower type range upgrade cost getter
-*/
 int Tower::getRangeCost(Type t){
     switch(t){
         case FIRE:
@@ -156,9 +129,6 @@ int Tower::getRangeCost(Type t){
     }
 }
 
-/*
-    Tower type cool down upgrade cost getter
-*/
 int Tower::getCoolDownCost(Type t){
     switch(t){
         case FIRE:
@@ -173,9 +143,6 @@ int Tower::getCoolDownCost(Type t){
     }
 }
 
-/*
-    Tower type damage upgrade function
-*/
 void Tower::upgradeDamage(Type t){
     switch(t){
         case FIRE:
@@ -190,9 +157,6 @@ void Tower::upgradeDamage(Type t){
     }
 }
 
-/*
-    Tower type range upgrade function
-*/
 void Tower::upgradeRange(Type t){
     switch(t){
         case FIRE:
@@ -207,9 +171,6 @@ void Tower::upgradeRange(Type t){
     }
 }
 
-/*
-    Tower type damage cool down function
-*/
 void Tower::upgradeCoolDown(Type t){
     switch(t){
         case FIRE:

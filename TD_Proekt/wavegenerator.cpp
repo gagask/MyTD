@@ -3,29 +3,17 @@
 #include <chrono>
 #include <cmath>
 
-/*
-    Function to empty the current spawn list
-*/
 void WaveGenerator::clearSpawnList(){
-    spawnList.clear(); //Don't delete the objects because they will be passed over to the game enemy list
+    spawnList.clear();
 }
 
-/*
-    Function to randomly generate a new spawn list
-    @param wave use current wave value to calculate how many enemies to spawn
-    @param spawnLocation the location to instantiate the new enemies
-*/
 std::vector<Enemy*> WaveGenerator::generateSpawnList(int wave, QPointF spawnLocation){
-    //Start by clearing spawnList
     clearSpawnList();
 
-    //Allocate spawn tokens based on current wave. It increases every 5 waves
     int spawnTokens = std::ceil(wave * 0.2) * 10;
 
-    //Generate an int distribution for each of the enemy types
     std::uniform_int_distribution<int> unif(0,2);
 
-    //randomly generate enemies
     do{
         int token = unif(generator);
         switch( token ){
